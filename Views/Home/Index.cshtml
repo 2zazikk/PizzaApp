@@ -246,26 +246,6 @@
         margin: 0 auto;
         padding: 0 15px;
     }
-
-    @media (max-width: 768px) {
-        .pizzas-grid {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        }
-
-        .hero-section h1 {
-            font-size: 32px;
-        }
-
-        .search-form {
-            flex-direction: column;
-        }
-
-        .search-form input,
-        .search-form select,
-        .search-form button {
-            width: 100%;
-        }
-    }
 </style>
 
 <div class="container">
@@ -325,3 +305,25 @@
         </div>
     }
 </div>
+
+<style>
+    @@media (max-width: 768px) {
+        .pizzas-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .hero-section h1 {
+            font-size: 32px;
+        }
+
+        .search-form {
+            flex-direction: column;
+        }
+
+        .search-form input,
+        .search-form select,
+        .search-form button {
+            width: 100%;
+        }
+    }
+</style>
