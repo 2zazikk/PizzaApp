@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PizzaApp.Models;
 using PizzaApp.Services;
 using System.Text.Json;
 
@@ -20,6 +21,28 @@ namespace PizzaApp.Controllers
                 return NotFound();
 
             return View(pizza);
+        }
+
+        // Форма для создания новой пиццы
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(Pizza pizza)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(pizza);
+            }
+
+            // Если ингредиенты пусты, инициализируем список
+            if (pizza.Ingredients == null)
+                pizza.Ingredients = new List<string>();
+
+            await _pizzaService.AddPizzaAsync(pizza);
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult AddToCart(int pizzaId, int quantity = 1)
