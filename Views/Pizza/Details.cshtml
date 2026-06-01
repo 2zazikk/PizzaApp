@@ -1,0 +1,32 @@
+@model PizzaApp.Models.Pizza
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.Name">
+        </div>
+        <div class="col-md-6">
+            <h1>@Model.Name</h1>
+            <p class="lead">@Model.Description</p>
+            
+            <h3 class="text-danger">₽@Model.Price</h3>
+            
+            <h5>Ингредиенты:</h5>
+            <ul>
+                @foreach (var ingredient in Model.Ingredients)
+                {
+                    <li>@ingredient</li>
+                }
+            </ul>
+            
+            <form method="post" action="/pizza/addtocart/@Model.Id" class="mt-4">
+                <div class="mb-3">
+                    <label for="quantity">Количество:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-control" style="width: 100px;">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">Добавить в корзину</button>
+                <a href="/" class="btn btn-secondary btn-lg">Назад</a>
+            </form>
+        </div>
+    </div>
+</div>

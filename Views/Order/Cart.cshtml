@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Корзина";
+}
+
+<div class="container">
+    <h1>🛒 Ваша корзина</h1>
+    
+    @if (ViewBag.CartItems != null && ((List<(PizzaApp.Models.Pizza, int)>)ViewBag.CartItems).Count > 0)
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Пицца</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<(PizzaApp.Models.Pizza, int)>)ViewBag.CartItems)
+                {
+                    <tr>
+                        <td>@item.Item1.Name</td>
+                        <td>₽@item.Item1.Price</td>
+                        <td>@item.Item2</td>
+                        <td>₽@(item.Item1.Price * item.Item2)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+        <div class="alert alert-info">
+            <h4>Итого: ₽@ViewBag.Total</h4>
+        </div>
+        
+        <a href="/order/checkout" class="btn btn-success btn-lg">Оформить заказ</a>
+        <a href="/" class="btn btn-secondary">Продолжить покупки</a>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <p>Ваша корзина пуста</p>
+            <a href="/" class="btn btn-primary">Вернуться в меню</a>
+        </div>
+    }
+</div>

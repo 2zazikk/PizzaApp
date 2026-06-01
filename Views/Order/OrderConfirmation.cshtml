@@ -1,0 +1,47 @@
+@model PizzaApp.Models.Order
+@{
+    ViewData["Title"] = "Подтверждение заказа";
+}
+
+<div class="container">
+    <div class="alert alert-success">
+        <h1>✅ Спасибо за ваш заказ!</h1>
+        <p>Номер заказа: <strong>#@Model.Id</strong></p>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Информация о доставке:</h3>
+            <p><strong>Имя:</strong> @Model.CustomerName</p>
+            <p><strong>Email:</strong> @Model.CustomerEmail</p>
+            <p><strong>Телефон:</strong> @Model.CustomerPhone</p>
+            <p><strong>Адрес:</strong> @Model.DeliveryAddress</p>
+        </div>
+        
+        <div class="col-md-6">
+            <h3>Содержание заказа:</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Пицца</th>
+                        <th>Кол-во</th>
+                        <th>Цена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.Pizza.Name</td>
+                            <td>@item.Quantity</td>
+                            <td>₽@(item.Price * item.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h4>Итого: <strong>₽@Model.TotalPrice</strong></h4>
+        </div>
+    </div>
+    
+    <a href="/" class="btn btn-primary mt-4">Вернуться в меню</a>
+</div>

@@ -1,0 +1,37 @@
+@model PizzaApp.Models.Order
+@{
+    ViewData["Title"] = "Оформление заказа";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Оформление заказа</h1>
+            
+            <form method="post" action="/order/checkout">
+                <div class="mb-3">
+                    <label for="CustomerName">Ваше имя</label>
+                    <input type="text" class="form-control" id="CustomerName" name="CustomerName" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="CustomerEmail">Email</label>
+                    <input type="email" class="form-control" id="CustomerEmail" name="CustomerEmail" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="CustomerPhone">Телефон</label>
+                    <input type="tel" class="form-control" id="CustomerPhone" name="CustomerPhone" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="DeliveryAddress">Адрес доставки</label>
+                    <textarea class="form-control" id="DeliveryAddress" name="DeliveryAddress" rows="3" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-success btn-lg">Подтвердить заказ</button>
+                <a href="/order/cart" class="btn btn-secondary">Назад</a>
+            </form>
+        </div>
+    </div>
+</div>
