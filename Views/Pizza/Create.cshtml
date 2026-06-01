@@ -1,0 +1,70 @@
+@model PizzaApp.Models.Pizza
+@{
+    ViewData["Title"] = "Добавить новую пиццу";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1>🍕 Добавить новую пиццу</h1>
+            
+            <form method="post" asp-action="Create" class="mt-4">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Название пиццы</label>
+                    <input asp-for="Name" class="form-control" placeholder="Например: Маргарита" required>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Описание</label>
+                    <textarea asp-for="Description" class="form-control" rows="3" placeholder="Опишите пиццу..." required></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Цена (₽)</label>
+                    <input asp-for="Price" type="number" step="0.01" class="form-control" placeholder="499" required>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">URL изображения</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/pizza.jpg">
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Ингредиенты (через запятую)</label>
+                    <textarea id="ingredientsInput" class="form-control" rows="3" placeholder="Тесто, Томат, Моцарелла, Базилик"></textarea>
+                    <small class="text-muted">Введите ингредиенты через запятую</small>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success btn-lg">✅ Добавить пиццу</button>
+                    <a href="/" class="btn btn-secondary btn-lg">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function() {
+    const ingredientsInput = document.getElementById('ingredientsInput').value;
+    if (ingredientsInput) {
+        const ingredients = ingredientsInput.split(',').map(i => i.trim()).filter(i => i);
+        const ingredientsJson = JSON.stringify(ingredients);
+        
+        // Создаём скрытое поле для отправки JSON
+        let input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'Ingredients';
+        input.value = ingredientsJson;
+        this.appendChild(input);
+    }
+});
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
